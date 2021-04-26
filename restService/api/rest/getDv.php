@@ -1,5 +1,6 @@
 <?php
-require "../bootstrap.php";
+require __DIR__ . "/../../bootstrap.php";
+require __DIR__ . "/../../RutFunctions.php";
 
 // Access Control Request Headers
 header("Access-Control-Allow-Origin: *");
@@ -10,26 +11,28 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $rut = null;
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
+$uri = explode( '/', $uri);
 
-if ($uri[1] !== 'api' && $uri[2] !== 'rest') {
+if ($uri[1] !== 'api' && $uri[2] !== 'rest' && $uri[3] !== 'getDv') {
     header("HTTP/1.1 404 Not Found");
     exit();
 }
 
-if (!isset($uri[3])) {
+// Return 400 Bad Request in case no "rut" parameter is not provided
+if (!isset($uri[4])) {
+    header("HTTP/1.1 400 Bad Request");
+
     echo json_encode(array(
         'success' => false,
         'error' => 'El rut es un parámetro requerido'
     ));
 } else {
-    $rut = (string) $uri[3];
+    $rut = (string) $uri[4];
     $requestMethod = $_SERVER["REQUEST_METHOD"];
-    $rutObject = new RutFunctions($rut);
+    $rutObject = new Functions\Rut\RutFunctions($rut);
 
     echo json_encode(array(
         'success' => true,
-        'data' => $rutObject.getVerifierDigit()
+        'data' => $rutObject->getVerifierDigit()
     ));
-
 }
