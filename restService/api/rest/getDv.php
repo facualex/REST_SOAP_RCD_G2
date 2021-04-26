@@ -12,11 +12,12 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $rut = null;
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri);
+$rutParam = key(array_slice($uri, -1, 1, true));
 
-if ($uri[1] !== 'api' && $uri[2] !== 'rest' && $uri[3] !== 'getDv') {
-    header("HTTP/1.1 404 Not Found");
-    exit();
-}
+//if ($uri[1] !== 'api' && $uri[2] !== 'rest' && $uri[3] !== 'getDv') {
+//    header("HTTP/1.1 404 Not Found");
+//    exit();
+//}
 
 // Return 400 Bad Request in case no "rut" parameter is not provided
 if (!isset($uri[4])) {
@@ -27,7 +28,7 @@ if (!isset($uri[4])) {
         'error' => 'El rut es un parámetro requerido'
     ));
 } else {
-    $rut = (string) $uri[4];
+    $rut = (string) $uri[$rutParam];
     $requestMethod = $_SERVER["REQUEST_METHOD"];
     $rutObject = new Functions\Rut\RutFunctions($rut);
 

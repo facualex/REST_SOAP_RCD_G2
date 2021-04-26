@@ -54,7 +54,7 @@ function App() {
       }));
 
       const response = await fetch(
-        `${process.env.REACT_APP_API_URI}/getDv/${rut}`
+        `${process.env.REACT_APP_API_URI}/getDv.php/${rut}`
       );
       const jsonResponse = await response.json();
 
