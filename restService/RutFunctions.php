@@ -24,58 +24,55 @@ class RutFunctions {
 		//En caso de existir, eliminamos ceros ("0") a la izquierda
 		$originalRut = ltrim($originalRut, '0');
 
-		$input		= str_split($originalRut);
-		$cleanedRut	= '';
+		$splittedRut		= str_split($originalRut);
+		$cleanRut	= '';
 
-		foreach ($input as $key => $chr) {
+		foreach ($splittedRut as $key => $chr) {
 
 			//Digito Verificador
-			if ((($key + 1) == count($input)) && ($incluyeDigitoVerificador)){
+			if ((($key + 1) == count($splittedRut)) && ($incluyeDigitoVerificador)){
 				if (is_numeric($chr) || ($chr == 'k') || ($chr == 'K'))
-					$cleanedRut .= '-'.strtoupper($chr);
+					$cleanRut .= '-'.strtoupper($chr);
 				else
 					return false;
 			}
 
 			//Números del RUT
 			elseif (is_numeric($chr))
-					$cleanedRut .= $chr;
+					$cleanRut .= $chr;
 		}
 		
-		if (strlen($cleanedRut) < 3)
+		if (strlen($cleanRut) < 1)
 			return false;
 		
-		return $cleanedRut;
+		return $cleanRut;
     }
 
     public function getVerifierDigit()
     {
-        //Preparamos el RUT recibido
-		$numero = $this->cleanRut(false);
+		$rutToNumber = $this->cleanRut(false);
 
-		//Calculamos el dígito verificador
-		$txt		= array_reverse(str_split($numero));
+		// Verifier digit algorithm 
+		$splittedRut		= array_reverse(str_split($rutToNumber));
 		$sum		= 0;
 		$factors	= array(2,3,4,5,6,7,2,3,4,5,6,7);
 
-		foreach($txt as $key => $chr) {
+		foreach($splittedRut as $key => $chr) {
 			$sum += $chr * $factors[$key];
 		}
 		
-		$a			= $sum % 11;
-		$b			= 11-$a;
+		$a	= $sum % 11;
+		$b = 11-$a;
 		
 		if($b == 11)
-			$digitoVerificador	= 0;
+			$dv	= 0;
 		elseif($b == 10)
-			$digitoVerificador	= 'K';
+			$dv	= 'K';
 		else
-			$digitoVerificador = $b;
+			$dv = $b;
 
-		//Convertimos el número a cadena para efectos de poder comparar
-		$digitoVerificador = (string)$digitoVerificador;
+		$dv = (string)$dv;
 
-		return $digitoVerificador;
-        return $this->cleanRut($this->rut);
+		return $dv;
     }
 }
