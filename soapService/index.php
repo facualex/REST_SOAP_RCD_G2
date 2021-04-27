@@ -1,6 +1,18 @@
 <?php
 require 'vendor/autoload.php';
 
+/*
+Request de prueba:
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <splitNames xmlns="names:namesservicewsdl">
+            <name>Esteban Rodrigo Mauricio Jose Facundo Grupo Dos</name>
+        </splitNames>
+    </Body>
+</Envelope>
+*/
+
 $server = new soap_server();
 $namespace = "names:namesservicewsdl";
 
