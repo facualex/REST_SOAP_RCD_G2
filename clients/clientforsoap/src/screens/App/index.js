@@ -1,6 +1,7 @@
 import cogoToast from "cogo-toast";
 import { useState } from "react";
 import axios from "axios";
+import XMLParser from 'react-xml-parser';
 import "./index.css";
 
 const initialState = {
@@ -82,7 +83,9 @@ function App() {
         headers: { "Content-Type": "text/xml" }
       })
 
-      console.log(response)
+      const parsedXMLResponse = new XMLParser().parseFromString(response.data);
+      console.log(response.data)
+      console.log(parsedXMLResponse)
 
     } catch (error) {
       setState((prevState) => ({
