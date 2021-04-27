@@ -40,12 +40,14 @@ $server->wsdl->addComplexType(
 $server->register("splitNames", array("name" => "xsd:string"), array("return" => "tns:userNames"), $namespace);
 
 function splitNames($names) {
-    return array(
-        'names' => array('Facundo'),
-        'lastNames' => array('Alexandre', 'Buchelli')
-    );
+   $namesArray = explode(" ", $names);
+   $lastNames =  array_slice($namesArray, -2);
+   $names = array_slice($namesArray, 0, -2);
 
-    // Split string names, get two last. Those are the last names. The rest are names
+    return array(
+        'names' => $names,
+        'lastNames' => $lastNames 
+    );
 }
 
 $server->service(file_get_contents("php://input"));
