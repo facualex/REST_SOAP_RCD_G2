@@ -1,0 +1,10 @@
+{
+    "require": {
+        "econea/nusoap": "^0.9.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    }
+}
