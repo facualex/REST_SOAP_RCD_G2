@@ -11,6 +11,9 @@
 - npm 7.0.3 (node package manager necesario en caso de necesitar cambiar las variables de entorno y hacer "rebuild" de los clientes)
 
 # Instrucciones
+
+## Rest API + Cliente Calculadora de RUT
+
  1 - Subir la carpeta "restService" a la carpeta htdocs de Apache
 
  2 - El cliente calculador de RUT asume que la API se encuentra en http://localhost:8888/restService/api/rest, es decir que fue subida directamente a la carpeta de Apache htdocs/restService. En caso de no estar en esa URI se debe modificar la variable de entorno (archivo .env) que se encuentra dentro de "clients/clientforrest/.env" llamada REACT_APP_API_URI de la siguiente forma:
@@ -33,3 +36,4 @@ npm run build
 
 Tras finalizar el build, se debe subir todo lo que está en la carpeta "clients/clientforrest/build" a la carpeta htdocs de Apache
 
+## SOAP API + Cliente Nombres 
