@@ -29,7 +29,7 @@ $app->post('/api/rest/getDv', function (Request $request, Response $response, ar
         return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
     }
 
-    $rutObject = new Functions\Rut\RutFunctions("22167744");
+    $rutObject = new Functions\Rut\RutFunctions($params["rut"]);
     $verifierDigit = $rutObject->getVerifierDigit();
 
     $response->getBody()->write(json_encode(array(

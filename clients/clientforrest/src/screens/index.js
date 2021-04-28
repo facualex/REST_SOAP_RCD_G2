@@ -1,5 +1,7 @@
-import App from "./App"
+import DvCalculator from "./DvCalculator"
+import NameSplitter from "./NameSplitter"
 
 export {
-    App,
+    DvCalculator,
+    NameSplitter,
 }
