@@ -1,6 +1,6 @@
 import cogoToast from "cogo-toast";
 import { useState } from "react";
-import API from "../../api"
+import API from "../../api";
 import "./index.css";
 
 const initialState = {
@@ -38,7 +38,7 @@ function App() {
       }
 
       // Valida que se ingrese al menos un nombre y apellido paterno y materno
-      if (namesInput.split(" ").filter(name => name).length < 3) {
+      if (namesInput.split(" ").filter((name) => name).length < 3) {
         setState((prevState) => ({
           ...prevState,
           namesInput: "",
@@ -54,13 +54,16 @@ function App() {
         isLoading: true,
       }));
 
-      const response = await API.splitNames(namesInput) 
+      const response = await API.splitNames(namesInput);
       const jsonResponse = await response.json();
 
       if (jsonResponse && jsonResponse.data) {
+        const { names, lastNames } = jsonResponse.data;
+
         setState((prevState) => ({
           ...prevState,
-          dv: jsonResponse.data,
+          names,
+          lastNames,
           isLoading: false,
         }));
         return cogoToast.success("Operación realizada con éxito!");
@@ -98,6 +101,32 @@ function App() {
           {isLoading ? "Cargando..." : "Realizar Split"}
         </button>
       </div>
+      {names && lastNames ? (
+        <div className="results-container">
+          <div className="names-container">
+            <h2 className="names-container-title">Nombres</h2>
+            {names
+              ? names.map((name, index) => (
+                  <div className="result-item">
+                    <span className="result-item-count">{index + 1}</span>
+                    <div className="result-item-text">{name}</div>
+                  </div>
+                ))
+              : null}
+          </div>
+          <div className="lastNames-container">
+            <h2 className="names-container-title">Apellidos</h2>
+            {names
+              ? lastNames.map((lastName, index) => (
+                  <div className="result-item">
+                    <span className="result-item-count">{index + 1}</span>
+                    <div className="result-item-text">{lastName}</div>
+                  </div>
+                ))
+              : null}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
