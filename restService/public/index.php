@@ -1,6 +1,7 @@
 <?php
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Selective\BasePath\BasePathMiddleware;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -9,7 +10,9 @@ require __DIR__ . "/../NameFunctions.php";
 
 $app = AppFactory::create();
 
-// Add Error Handling Middleware
+// Middlewares
+$app->addRoutingMiddleware();
+$app->add(new BasePathMiddleware($app));
 $app->addErrorMiddleware(true, false, false);
 
 // API Routes

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '9a023868339276a257505d4b8d3ea7657c4ef38d',
+    'reference' => 'a418cfd2ddb6969182119633321f7113fc6e66c4',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '9a023868339276a257505d4b8d3ea7657c4ef38d',
+      'reference' => 'a418cfd2ddb6969182119633321f7113fc6e66c4',
     ),
     'fig/http-message-util' => 
     array (
@@ -114,6 +114,15 @@
       array (
       ),
       'reference' => '120b605dfeb996808c31b6477290a714d356e822',
+    ),
+    'selective/basepath' => 
+    array (
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c843c4866d3d721bf5cda53e52f75d69ad1e2199',
     ),
     'slim/psr7' => 
     array (
