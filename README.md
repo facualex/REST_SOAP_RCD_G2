@@ -12,7 +12,7 @@
 
 # Instrucciones
 
-## Rest API + Cliente Calculadora de RUT
+## Rest API + Cliente Calculadora de RUT y Split de Nombres
 
 1. Descargar repositorio ejecutando desde terminal:
 
@@ -22,9 +22,33 @@ git clone https://github.com/facualex/REST_SOAP_RCD_G2.git
 
 > Como alternativa puedes simplemente descargar el .zip desde el repositorio de github y descomprimirlo en tu computador
 
-2. Copiar la carpeta llamada "restService" dentro de la carpeta web pública del servidor de apache ya sea htdocs, www, etc (dependiendo de tu instalación de apache).
+2. Copiar la carpeta llamada "restService" dentro de la carpeta web pública del servidor de apache donde se exponen tus aplicaciones web ya sea htdocs, www, etc (dependiendo de tu instalación de apache).
 
-> Para el caso de esta guia se copió en ***htdocs/RCD_GRUPO2/restService*** pero puede ser copiada en otro path. Para ello se debe ajustar una variable de entorno en el cliente en los siguientes pasos.
+> Para el caso de esta guia se copió en ***htdocs/RCD_GRUPO2/restService*** pero puede ser copiada en otro path. Para ello se debe ajustar una variable de entorno en el cliente como se verá en los siguientes pasos.
+
+> **IMPORTANTE**: La carpeta "restService" donde se encuentra la API rest utiliza archivos de Apache .htaccess. Para que la aplicación funcione correctamente es necesario que el modulo de apache "mod_rewrite" esté instalado y habilitado. La ubicación del archivo .conf donde se habilita este servicio va a depender de tu instalación de Apache ya que no siempre se encuentra en la misma ubicación. Puedes buscar este archivo dentro de la carpeta donde está instalado apache buscando "*.conf" en el buscador de archivos de Windows (o otro SO). Generalmente el archivo tiene el nombre "httpd.conf". Dentro de "httpd.conf" buscar la siguiente linea:
+
+````apache
+#LoadModule rewrite_module modules/mod_rewrite.so
+
+# Si esa linea está comentada, descomentarla eliminando el simbolo "#"
+LoadModule rewrite_module modules/mod_rewrite.so
+````
+
+> Una vez descomentada la linea anterior, se debe buscar la siguiente linea y asegurarse que tenga las siguientes configuraciones:
+
+````apache
+# Buscar el directorio donde se encuentran la carpeta pública donde Apache expone las aplicaciones
+## Puede ser /var/www, /htdocs, etc. Dependiendo de tu instalación de Apache. Lo importante es que sea la carpeta pública de tu instalación.
+
+<Directory /var/www/> 
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+````
+
+> Una vez realizadas las modificaciones anteriores, guardar el archivo "httpd.conf" y continuar con la guía
 
 3. Debemos ajustar una variable de entorno del cliente para que sepa la ruta donde quedó instalado el servicio. Para esto navegar desde un terminal hasta la carpeta REST_SOAP_RCD_G2/clients/clientforrest:
 
@@ -61,4 +85,4 @@ Esto creará una carpeta build en REST_SOAP_RCD_G2/clients/clientforrest/build. 
 
 5. Listo! La aplicación estará corriendo en localhost/RCD_GRUPO2/restClient (o el path que hayas escogido)
 
-## SOAP API + Cliente Nombres 
+## SOAP API + Cliente
