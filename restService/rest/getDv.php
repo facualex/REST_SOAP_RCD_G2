@@ -11,15 +11,18 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $rut = null;
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// No sirve, pq la ruta puede ser dinamica
 $uri = explode( '/', $uri);
+
+// Evaluar uri
+if ($uri[1] !== 'api' && $uri[2] !== 'rest') {
+    header("HTTP/1.1 404 Not Found");
+    exit();
+}
+
 $rutParam = key(array_slice($uri, -1, 1, true));
 
-//if ($uri[1] !== 'api' && $uri[2] !== 'rest' && $uri[3] !== 'getDv') {
-//    header("HTTP/1.1 404 Not Found");
-//    exit();
-//}
-
-// Return 400 Bad Request in case no "rut" parameter is not provided
 if (!isset($uri[4])) {
     header("HTTP/1.1 400 Bad Request");
 
