@@ -13,16 +13,43 @@ $app = AppFactory::create();
 $app->addErrorMiddleware(true, false, false);
 
 // API Routes
-$app->get('/api/rest/getDv', function (Request $request, Response $response, array $args) {
+$app->post('/api/rest/getDv', function (Request $request, Response $response, array $args) {
+    $params = (array)$request->getParsedBody();
+
+    // Validar parametros, rut es requerido
+     if (!$params["rut"]) {
+        $response->getBody()->write(json_encode(array(
+            "success" => false,
+            "error" => "El parámetro rut es requerido",
+        )));
+        
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+    }
+
     $rutObject = new Functions\Rut\RutFunctions("22167744");
     $verifierDigit = $rutObject->getVerifierDigit();
 
-    $response->getBody()->write($verifierDigit);
-    return $response;
+    $response->getBody()->write(json_encode(array(
+        "success" => true,
+        "data" => $verifierDigit,
+    )));
+
+    return $response->withHeader('Content-Type', 'application/json');
 });
 
 $app->post('/api/rest/splitNames', function (Request $request, Response $response, array $args) {
     $params = (array)$request->getParsedBody();
+
+    // Validar parametros, names es requerido
+    if (!$params["names"]) {
+        $response->getBody()->write(json_encode(array(
+            "success" => false,
+            "error" => "El parámetro names es requerido",
+        )));
+        
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+    }
+
     $namesObject = new Functions\Names\NameFunctions($params["names"]);
     $splittedNames = $namesObject->splitNames();
 
