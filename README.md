@@ -85,4 +85,59 @@ Esto creará una carpeta build en REST_SOAP_RCD_G2/clients/clientforrest/build. 
 
 5. Listo! La aplicación estará corriendo en localhost/RCD_GRUPO2/restClient (o el path que hayas escogido)
 
-## SOAP API + Cliente
+## SOAP API + Clientes
+
+### Prerequisitos	
+	- XAMPP (o cualquier instancia para subir app a entornos web's)
+	- Tomcat 8.0.32
+	- JDK 8 (Esto es necesario para correr el servidor de tomcat)
+
+
+1.  Descargar y descomprimir el servidor de tomcat 8.0.32 en su disco local. (en este caso estará en C:\apache-tomcat-8.0.3	2)
+2. Instalar el JDK 8 y seguir los pasos (en este caso estara instalado en C:\Program Files\Java\jdk1.8.0_291 )
+3. Ahora es necesario inicializar el servidor de tomcat, para esto es necesario editar y agregar algunas variables de entorno.
+
+> 
+
+ 	    *Para agregar las variables de entorno, es necesario ir a:
+		1.- propiedades del sistema -> variables de entorno...
+		2.- Nueva...
+		3.- En nombre de variable agregaremos "CATALINA_HOME", y en el valor de la variable pondremos la direccion en donde se extrajo tomcat,
+		    en este caso, C:\apache-tomcat-8.0.32. le damos aceptar.
+		4.- Nueva...
+		5.- En nombre de variable agregaremos "JAVA_HOME", y en el valor de la variable pondremos la direccion en donde se instalo el JDK 8,
+		    en este caso, C:\Program Files\Java\jdk1.8.0_291. Le damos aceptar.
+		6.- Buscamos la variable con el nombre "Path", y Editar...
+		7.- boton Nuevo.
+		8.- y agregamos "%CATALINA_HOME%\bin" sin las comillas.
+		9.- aceptamos y aceptar, finalmente podremos inicializar nuestro servidor a traves de nuestro simbolo del sistema.
+
+4. Inicializamos nuestro simbolo del sistema y nos trasladamos a la carpeta del tomcat y dentro de esta a la carpeta bin.
+		1.- cd C:\
+		2.- cd apache-tomcat-8.0.32
+		3.- cd bin
+		4.- catalina.bat start
+
+5. Finalmente nuestro servidor estara corriento en localhost:8080
+6. entramos a esta desde nuestro navegador web y vamos a Manager APP
+7. ingresamos el usuario y clave por defecto
+8. buscamos la seccion de agregar archivos de tipo WAR, selecciamos el archivo WSRUT.war y le damos a desplegar.
+		8.1- Nos fijamos que en este en "TRUE" en ejecutandose nuestra app
+9. finalmente el webservice de tipo SOAP estara ejecutandose en el servidor Tomcat 8.0 
+10. ahora copiar la carpeta T1REDES-SOAPCLIENT en C:\xampp\htdocs
+11. inicalizar el servicio de apache del XAMPP
+12. en nuestro navegador ir a la URL: localhost\T1REDES-SOAPCLIENT
+13. Listo!
+
+### Otra forma de instalación
+
+En el caso de que no se quiera instalar el servidor de tomcat, para saltarnos el entorno de variables, en este caso utilziaremos solamente XAMPP
+
+
+1. Instalar XAMPP y seguir todas las instrucciones
+2. Copiar el WSRUT.war y la carpeta WSRUT en C:\xampp\tomcat\webapps
+3. copiar la carpeta T1REDES-SOAPCLIENT en C:\xampp\htdocs
+4. inicalizar el servicio de apache y tomcat del XAMPP
+5. en nuestro navegador ir a la URL: localhost\T1REDES-SOAPCLIENT
+6. Listo!
+
